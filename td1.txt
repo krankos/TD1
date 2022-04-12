@@ -1,0 +1,136 @@
+//ex1
+public class Rectangle {
+    private int a;
+    private int b;
+
+    public Rectangle(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int surface() {
+        return a * b;
+    }
+
+}
+
+//ex2
+public class Student {
+    private String name;
+    private double grade1;
+    private double grade2;
+
+    public Student(String name, float grade1, float grade2) {
+        this.name = name;
+        this.grade1 = grade1;
+        this.grade2 = grade2;
+    }
+
+    public double average() {
+        return (grade1 + grade2) / 2;
+    }
+
+    public void show() {
+        System.out.println("Name: " + name);
+        System.out.println("Average: " + average());
+    }
+}
+
+//ex3
+public class Complex {
+
+    private double real;
+    private double imaginary;
+
+    public Complex() {
+        real = 0;
+        imaginary = 0;
+    }
+
+    public Complex(double real, double imaginary) {
+        this.real = real;
+        this.imaginary = imaginary;
+    }
+
+    public double getReal() {
+        return real;
+    }
+
+    public double getImaginary() {
+        return imaginary;
+    }
+
+    public Complex add(Complex n) {
+        return new Complex(real + n.getReal(), imaginary + n.getImaginary());
+    }
+}
+
+
+//ex4
+public class Point {
+    // point has x and y
+    private int x;
+    private int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double distance(Point p) {
+        return Math.sqrt(Math.pow(p.x - x, 2) + Math.pow(p.y - y, 2));
+    }
+
+}
+
+//ex5
+import java.util.*;
+
+public class Matryochka {
+    private int size;
+    private Vector<Matryochka> parents;
+    private Vector<Matryochka> children;
+    private boolean open;
+
+    public Matryochka() {
+        size = 0;
+        parents = new Vector<Matryochka>();
+        children = new Vector<Matryochka>();
+        open = false;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void open() {
+        this.open = this.children.size() == 0 && !this.open;
+    }
+
+    public void close() {
+        this.open = this.open && this.parents.size() == 0;
+
+    }
+
+    public void placeIn(Matryochka P) {
+        if (P.open && P.size >= this.size && !this.open && this.parents.size() == 0 && P.children.size() == 0) {
+
+            P.children.add(this);
+            this.parents.add(P);
+
+        }
+
+    }
+
+    public void placeOut(Matryochka P) {
+        if (!this.open && P.children.contains(this) && !P.open) {
+            P.children.remove(this);
+            this.parents.remove(P);
+
+        }
+    }
+}
